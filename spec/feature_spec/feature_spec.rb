@@ -1,7 +1,7 @@
 require './lib/account.rb'
 
 describe Account do
-  subject(:account) { described_class.new }
+  subject(:account) { described_class.new(:transactions) }
   let(:date) { double(:date) }
 
   it ' A user creates a new account and the balance is zero' do
