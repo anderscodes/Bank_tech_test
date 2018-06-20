@@ -9,4 +9,11 @@ describe Transactions do
       expect(transactions.transaction_list).to eq([])
     end
   end
+
+  describe 'deposit' do
+    it 'should save a deposit with a date and an amount' do
+      transactions.deposit("12-03-15", 500)
+      expect(transactions.transaction_list).to include(["12-03-15", 500])
+    end
+  end
 end

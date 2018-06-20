@@ -6,4 +6,9 @@ attr_reader :transaction_list
     @transaction_list = []
   end
 
+  def deposit(date, amount)
+    debit = date, amount
+    transaction_list.push(debit)
+  end
+
 end
