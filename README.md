@@ -22,3 +22,6 @@ As a user,
 So that I can keep track of my money,
 I would like to be able to see an account statement.
 ```
+## **Diagram**
+
+![Diagram](https://github.com/anderscodes/bank_tech_test_version2/blob/master/Bank%20Diagram.jpg?raw=true)
