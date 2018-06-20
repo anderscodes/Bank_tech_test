@@ -3,6 +3,7 @@ require './lib/account.rb'
 describe Account do
   subject(:account) { described_class.new(transactions) }
   let(:transactions) { double(:transactions) }
+  let(:date) { double(:date) }
 
   describe '#balance' do
     it 'The balance is zero' do
@@ -18,7 +19,13 @@ describe Account do
 
   describe '#transactions' do
     it 'should equal transactions' do
-      expect(transactions).to eq(transactions)
+      expect(account.transactions).to eq(transactions)
+    end
+
+    it 'should call deposit on the transaction class and return the balance' do
+      allow(transactions).to receive(:deposit).and_return(500)
+      account.deposit(:date, 500)
+      expect(transactions).to have_received(:deposit).with(:date, 500)
     end
   end
 
