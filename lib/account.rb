@@ -1,6 +1,6 @@
 class Account
 
-attr_reader :balance, :transactions
+  attr_reader :balance, :transactions
 
   def initialize(transactions)
     @balance = 0
@@ -9,6 +9,10 @@ attr_reader :balance, :transactions
 
   def deposit(date, amount)
     transactions.deposit(date, amount)
+  end
+
+  def withdraw(date, amount)
+    transactions.withdraw(date, amount)
   end
 
 end
