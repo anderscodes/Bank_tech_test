@@ -8,11 +8,13 @@ class Account
   end
 
   def deposit(date, amount)
+    numeric_check(amount)
     credit(amount)
     transactions.deposit(date, amount, balance)
   end
 
   def withdraw(date, amount)
+    numeric_check(amount)
     account_check(amount)
     debit(amount)
     transactions.withdraw(date, amount, balance)
@@ -33,5 +35,12 @@ class Account
       raise 'Insufficent funds available'
     end
   end
+
+  def numeric_check(amount)
+    if amount.to_f != amount
+      raise 'Input must be an integer or a float'
+    end
+  end
+
 
 end

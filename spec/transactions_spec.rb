@@ -19,8 +19,8 @@ describe Transactions do
 
   describe 'withdraw' do
     it 'should save a withdrawal with a date and an amount' do
-      transactions.withdraw("12-03-16", 400, -400)
-      expect(transactions.transaction_list).to include(["12-03-16", 400, -400])
+      transactions.withdraw("12-03-16", 400, 300)
+      expect(transactions.transaction_list).to include(["12-03-16", 400, 300])
     end
   end
 end

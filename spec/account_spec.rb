@@ -14,6 +14,10 @@ describe Account do
 
   describe '#deposit' do
 
+    it 'should raise an error if anything other than a number is input' do
+      expect{ account.deposit(:date, "23") }.to raise_error('Input must be an integer or a float')
+    end
+
     context 'A deposit is made' do
       before do
         allow(transactions).to receive(:deposit)
@@ -56,6 +60,10 @@ describe Account do
 
       it 'An error is raised if user tries to withdraw more money than is in account' do
         expect{ account.withdraw(:date, 250) }.to raise_error('Insufficent funds available')
+      end
+
+      it 'should raise an error if anything other than a number is input' do
+        expect{ account.withdraw(:date, "23") }.to raise_error('Input must be an integer or a float')
       end
     end
   end
