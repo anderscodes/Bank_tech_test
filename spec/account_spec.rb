@@ -78,7 +78,13 @@ describe Account do
       allow(statement).to receive(:pretty_print)
       allow(transactions).to receive(:transaction_list)
       account.show_statement
-      expect(statement).to have_received(:pretty_print)
+      expect(statement).to have_received(:pretty_print).with(transactions.transaction_list)
     end
+
+    it 'should return a message if statement is empty' do
+      allow(transactions).to receive(:transaction_list).and_return([])
+      expect { account.show_statement }.to raise_error('Nothing to show here!')
+    end
+
   end
 end

@@ -22,6 +22,7 @@ class Account
   end
 
   def show_statement
+    is_empty
     statement.pretty_print(transactions.transaction_list)
   end
 
@@ -41,6 +42,10 @@ class Account
 
   def numeric_check(amount)
     raise 'Input must be an integer or a float' if amount.to_f != amount
+  end
+
+  def is_empty
+    raise 'Nothing to show here!' if transactions.transaction_list == []
   end
 
 end
