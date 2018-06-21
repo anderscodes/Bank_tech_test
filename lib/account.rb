@@ -16,36 +16,31 @@ class Account
 
   def withdraw(date, amount)
     numeric_check(amount)
-    account_check(amount)
+    funds_check(amount)
     debit(amount)
     transactions.withdraw(date, amount, balance)
   end
 
   def show_statement
-    statement.pretty_print
+    statement.pretty_print(transactions.transaction_list)
   end
 
   private
 
   def credit(amount)
-    @balance += (amount)
+    @balance += amount
   end
 
   def debit(amount)
-    @balance -= (amount)
+    @balance -= amount
   end
 
-  def account_check(amount)
-    if balance - amount <= 0
-      raise 'Insufficent funds available'
-    end
+  def funds_check(amount)
+    raise 'Insufficent funds available' if balance - amount <= 0
   end
 
   def numeric_check(amount)
-    if amount.to_f != amount
-      raise 'Input must be an integer or a float'
-    end
+    raise 'Input must be an integer or a float' if amount.to_f != amount
   end
-
 
 end

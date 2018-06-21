@@ -6,7 +6,6 @@ describe Account do
   let(:statement) { double(:statement) }
   let(:date) { double(:date) }
 
-
   describe '#balance' do
     it 'The balance is zero' do
       expect(account.balance).to eq(0)
@@ -16,7 +15,7 @@ describe Account do
   describe '#deposit' do
 
     it 'should raise an error if anything other than a number is input' do
-      expect{ account.deposit(:date, "23") }.to raise_error('Input must be an integer or a float')
+      expect { account.deposit(:date, "23") }.to raise_error('Input must be an integer or a float')
     end
 
     context 'A deposit is made' do
@@ -56,7 +55,6 @@ describe Account do
         account.withdraw(:date, 300)
       end
 
-
       it 'should call withdraw on transactions' do
         expect(transactions).to have_received(:withdraw).with(:date, 300, 200)
       end
@@ -66,11 +64,11 @@ describe Account do
       end
 
       it 'An error is raised if user tries to withdraw more money than is in account' do
-        expect{ account.withdraw(:date, 250) }.to raise_error('Insufficent funds available')
+        expect { account.withdraw(:date, 250) }.to raise_error('Insufficent funds available')
       end
 
       it 'should raise an error if anything other than a number is input' do
-        expect{ account.withdraw(:date, "23") }.to raise_error('Input must be an integer or a float')
+        expect { account.withdraw(:date, "23") }.to raise_error('Input must be an integer or a float')
       end
     end
   end
@@ -78,6 +76,7 @@ describe Account do
   describe '#show_statement' do
     it 'calls pretty_print on the statement object' do
       allow(statement).to receive(:pretty_print)
+      allow(transactions).to receive(:transaction_list)
       account.show_statement
       expect(statement).to have_received(:pretty_print)
     end
