@@ -13,7 +13,6 @@ describe Account do
   end
 
   describe '#deposit' do
-
     it 'should raise an error if anything other than a number is input' do
       expect { account.deposit(:date, "23") }.to raise_error('Input must be an integer or a float')
     end
@@ -85,6 +84,6 @@ describe Account do
       allow(transactions).to receive(:transaction_list).and_return([])
       expect { account.show_statement }.to raise_error('Nothing to show here!')
     end
-
   end
+
 end

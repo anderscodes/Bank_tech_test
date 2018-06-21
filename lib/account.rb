@@ -1,3 +1,5 @@
+require 'date'
+
 class Account
 
   attr_reader :balance, :transactions, :statement
@@ -8,13 +10,13 @@ class Account
     @statement = statement
   end
 
-  def deposit(date, amount)
+  def deposit(date = Date.strftime("%m/%d/%Y"), amount)
     numeric_check(amount)
     credit(amount)
     transactions.deposit(date, amount, balance)
   end
 
-  def withdraw(date, amount)
+  def withdraw(date = Date.strftime("%m/%d/%Y"), amount)
     numeric_check(amount)
     funds_check(amount)
     debit(amount)
