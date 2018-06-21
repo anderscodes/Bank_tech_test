@@ -9,12 +9,12 @@ class Account
 
   def deposit(date, amount)
     credit(amount)
-    transactions.deposit(date, amount)
+    transactions.deposit(date, amount, balance)
   end
 
   def withdraw(date, amount)
     debit(amount)
-    transactions.withdraw(date, amount)
+    transactions.withdraw(date, amount, balance)
   end
 
   private

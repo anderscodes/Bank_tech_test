@@ -6,12 +6,12 @@ class Transactions
     @transaction_list = []
   end
 
-  def deposit(date, amount)
-    transaction_list.push([date, amount])
+  def deposit(date, amount, balance)
+    transaction_list.push([date, amount, balance])
   end
 
-  def withdraw(date, amount)
-    transaction_list.push([date, amount])
+  def withdraw(date, amount, balance)
+    transaction_list.push([date, amount, balance])
   end
 
 end

@@ -24,7 +24,7 @@ describe Account do
       end
 
       it 'should call deposit on transactions' do
-        expect(transactions).to have_received(:deposit).with(:date, 500)
+        expect(transactions).to have_received(:deposit).with(:date, 500, 500)
       end
 
       it 'should update the balance when a deposit is made' do
@@ -54,7 +54,7 @@ describe Account do
 
 
       it 'should call withdraw on transactions' do
-        expect(transactions).to have_received(:withdraw).with(:date, 300)
+        expect(transactions).to have_received(:withdraw).with(:date, 300, 200)
       end
 
       it 'should update the balance when a withdrawal is made' do
