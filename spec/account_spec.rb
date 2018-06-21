@@ -16,10 +16,19 @@ describe Account do
       expect(account).to respond_to(:deposit).with(2).argument
     end
 
-    it 'should call deposit on the transaction class and return the balance' do
-      allow(transactions).to receive(:deposit).and_return(500)
-      account.deposit(:date, 500)
-      expect(transactions).to have_received(:deposit).with(:date, 500)
+    context 'A deposit is made' do
+      before do
+        allow(transactions).to receive(:deposit)
+        account.deposit(:date, 500)
+      end
+
+      it 'should call deposit on transactions' do
+        expect(transactions).to have_received(:deposit).with(:date, 500)
+      end
+
+      it 'should update the balance when a deposit is made' do
+        expect(account.balance).to eq(500)
+      end
     end
   end
 
@@ -34,7 +43,7 @@ describe Account do
       expect(account).to respond_to(:withdraw).with(2).argument
     end
 
-    it 'should call withdraw on the transaction class and return the balance' do
+    it 'should call withdraw on transactions' do
       allow(transactions).to receive(:withdraw)
       account.withdraw(:date, 300)
       expect(transactions).to have_received(:withdraw).with(:date, 300)

@@ -18,4 +18,5 @@ describe 'Account' do
     expect(account.transactions.transaction_list).to include([:date, 300])
   end
 
+
 end

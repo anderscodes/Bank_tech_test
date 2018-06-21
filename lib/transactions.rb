@@ -7,13 +7,11 @@ class Transactions
   end
 
   def deposit(date, amount)
-    debit = date, amount
-    transaction_list.push(debit)
+    transaction_list.push([date, amount])
   end
 
   def withdraw(date, amount)
-    credit = date, amount
-    transaction_list.push(credit)
+    transaction_list.push([date, amount])
   end
 
 end
