@@ -14,10 +14,9 @@ describe 'Account' do
   end
 
   it 'A user can withdraw some money' do
+    account.deposit(:date, 500)
     account.withdraw(:date, 300)
-    expect(account.transactions.transaction_list).to include([:date, 300, -300])
+    expect(account.transactions.transaction_list).to include([:date, 300, 200])
   end
-
-
 
 end

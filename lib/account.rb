@@ -13,6 +13,7 @@ class Account
   end
 
   def withdraw(date, amount)
+    account_check(amount)
     debit(amount)
     transactions.withdraw(date, amount, balance)
   end
@@ -25,6 +26,12 @@ class Account
 
   def debit(amount)
     @balance -= (amount)
+  end
+
+  def account_check(amount)
+    if balance - amount <= 0
+      raise 'Insufficent funds available'
+    end
   end
 
 end

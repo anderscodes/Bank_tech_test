@@ -13,9 +13,6 @@ describe Account do
   end
 
   describe '#deposit' do
-    it 'Responds to deposit method' do
-      expect(account).to respond_to(:deposit).with(2).argument
-    end
 
     context 'A deposit is made' do
       before do
@@ -40,10 +37,6 @@ describe Account do
   end
 
   describe '#withdraw' do
-    it 'Responds to the withdraw method' do
-      expect(account).to respond_to(:withdraw).with(2).argument
-    end
-
     context 'A deposit is made and withdrawal is made' do
       before do
         allow(transactions).to receive(:deposit)
@@ -59,6 +52,10 @@ describe Account do
 
       it 'should update the balance when a withdrawal is made' do
         expect(account.balance).to eq(200)
+      end
+
+      it 'An error is raised if user tries to withdraw more money than is in account' do
+        expect{ account.withdraw(:date, 250) }.to raise_error('Insufficent funds available')
       end
     end
   end
