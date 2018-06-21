@@ -3,7 +3,8 @@ require './lib/account.rb'
 describe Account do
   subject(:account) { described_class.new(transactions) }
   let(:transactions) { double(:transactions) }
-  let(:date) { double(:date) }
+  let(:date) { double(:date, :deposit) }
+
 
   describe '#balance' do
     it 'The balance is zero' do
@@ -43,11 +44,22 @@ describe Account do
       expect(account).to respond_to(:withdraw).with(2).argument
     end
 
-    it 'should call withdraw on transactions' do
-      allow(transactions).to receive(:withdraw)
-      account.withdraw(:date, 300)
-      expect(transactions).to have_received(:withdraw).with(:date, 300)
+    context 'A deposit is made and withdrawal is made' do
+      before do
+        allow(transactions).to receive(:deposit)
+        allow(transactions).to receive(:withdraw)
+        account.deposit(:date, 500)
+        account.withdraw(:date, 300)
+      end
+
+
+      it 'should call withdraw on transactions' do
+        expect(transactions).to have_received(:withdraw).with(:date, 300)
+      end
+
+      it 'should update the balance when a withdrawal is made' do
+        expect(account.balance).to eq(200)
+      end
     end
   end
-
 end

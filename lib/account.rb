@@ -13,6 +13,7 @@ class Account
   end
 
   def withdraw(date, amount)
+    debit(amount)
     transactions.withdraw(date, amount)
   end
 
@@ -20,6 +21,10 @@ class Account
 
   def credit(amount)
     @balance += (amount)
+  end
+
+  def debit(amount)
+    @balance -= (amount)
   end
 
 end
