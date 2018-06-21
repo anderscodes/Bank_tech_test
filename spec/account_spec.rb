@@ -1,9 +1,10 @@
 require './lib/account.rb'
 
 describe Account do
-  subject(:account) { described_class.new(transactions) }
+  subject(:account) { described_class.new(transactions, statement) }
   let(:transactions) { double(:transactions) }
-  let(:date) { double(:date, :deposit) }
+  let(:statement) { double(:statement) }
+  let(:date) { double(:date) }
 
 
   describe '#balance' do
@@ -40,6 +41,12 @@ describe Account do
     end
   end
 
+  describe '#statement' do
+    it 'should equal statement' do
+      expect(account.statement).to eq(statement)
+    end
+  end
+
   describe '#withdraw' do
     context 'A deposit is made and withdrawal is made' do
       before do
@@ -65,6 +72,14 @@ describe Account do
       it 'should raise an error if anything other than a number is input' do
         expect{ account.withdraw(:date, "23") }.to raise_error('Input must be an integer or a float')
       end
+    end
+  end
+
+  describe '#show_statement' do
+    it 'calls pretty_print on the statement object' do
+      allow(statement).to receive(:pretty_print)
+      account.show_statement
+      expect(statement).to have_received(:pretty_print)
     end
   end
 end

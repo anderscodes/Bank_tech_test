@@ -1,10 +1,11 @@
 class Account
 
-  attr_reader :balance, :transactions
+  attr_reader :balance, :transactions, :statement
 
-  def initialize(transactions)
+  def initialize(transactions, statement)
     @balance = 0
     @transactions = transactions
+    @statement = statement
   end
 
   def deposit(date, amount)
@@ -18,6 +19,10 @@ class Account
     account_check(amount)
     debit(amount)
     transactions.withdraw(date, amount, balance)
+  end
+
+  def show_statement
+    statement.pretty_print
   end
 
   private
