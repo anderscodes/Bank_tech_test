@@ -4,7 +4,6 @@ describe Account do
   subject(:account) { described_class.new(transactions, statement) }
   let(:transactions) { double(:transactions) }
   let(:statement) { double(:statement) }
-  let(:date) { double(:date) }
 
   describe '#balance' do
     it 'The balance is zero' do
@@ -14,17 +13,21 @@ describe Account do
 
   describe '#deposit' do
     it 'should raise an error if anything other than a number is input' do
-      expect { account.deposit(:date, "23") }.to raise_error('Input must be an integer or a float')
+      expect { account.deposit("23") }.to raise_error('Input must be an integer or a float')
+    end
+
+    it 'should raise an error if date is in wrong format' do
+      expect { account.deposit("12042018", 23.0) }.to raise_error('invalid date')
     end
 
     context 'A deposit is made' do
       before do
         allow(transactions).to receive(:deposit)
-        account.deposit(:date, 500)
+        account.deposit("2018-06-21", 500)
       end
 
       it 'should call deposit on transactions' do
-        expect(transactions).to have_received(:deposit).with(:date, 500, 500)
+        expect(transactions).to have_received(:deposit).with("2018-06-21", 500, 500)
       end
 
       it 'should update the balance when a deposit is made' do
@@ -50,12 +53,12 @@ describe Account do
       before do
         allow(transactions).to receive(:deposit)
         allow(transactions).to receive(:withdraw)
-        account.deposit(:date, 500)
-        account.withdraw(:date, 300)
+        account.deposit("2018-06-21", 500)
+        account.withdraw("2018-06-21", 300)
       end
 
       it 'should call withdraw on transactions' do
-        expect(transactions).to have_received(:withdraw).with(:date, 300, 200)
+        expect(transactions).to have_received(:withdraw).with("2018-06-21", 300, 200)
       end
 
       it 'should update the balance when a withdrawal is made' do
@@ -63,11 +66,11 @@ describe Account do
       end
 
       it 'An error is raised if user tries to withdraw more money than is in account' do
-        expect { account.withdraw(:date, 250) }.to raise_error('Insufficent funds available')
+        expect { account.withdraw("2018-06-21", 250) }.to raise_error('Insufficent funds available')
       end
 
       it 'should raise an error if anything other than a number is input' do
-        expect { account.withdraw(:date, "23") }.to raise_error('Input must be an integer or a float')
+        expect { account.withdraw("2018-06-21", "23") }.to raise_error('Input must be an integer or a float')
       end
     end
   end
