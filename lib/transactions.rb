@@ -11,4 +11,9 @@ class Transactions
     transaction_list.push(debit)
   end
 
+  def withdraw(date, amount)
+    credit = date, amount
+    transaction_list.push(credit)
+  end
+
 end
