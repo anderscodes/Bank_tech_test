@@ -22,15 +22,15 @@ describe Account do
 
     context 'A deposit is made' do
       before do
-        allow(transactions).to receive(:deposit)
-        account.deposit("2018-06-21", 500)
+        allow(transactions).to receive(:deposit).and_return(500)
       end
 
       it 'should call deposit on transactions' do
-        expect(transactions).to have_received(:deposit).with("2018-06-21", 500, 500)
+        expect(account.deposit(500)).to eq(500)
       end
 
       it 'should update the balance when a deposit is made' do
+        account.deposit("2018-06-21", 500)
         expect(account.balance).to eq(500)
       end
     end
@@ -52,13 +52,13 @@ describe Account do
     context 'A deposit is made and withdrawal is made' do
       before do
         allow(transactions).to receive(:deposit)
-        allow(transactions).to receive(:withdraw)
+        allow(transactions).to receive(:withdraw).and_return(100)
         account.deposit("2018-06-21", 500)
         account.withdraw("2018-06-21", 300)
       end
 
       it 'should call withdraw on transactions' do
-        expect(transactions).to have_received(:withdraw).with("2018-06-21", 300, 200)
+        expect(account.withdraw(100)).to eq(100)
       end
 
       it 'should update the balance when a withdrawal is made' do
@@ -71,6 +71,10 @@ describe Account do
 
       it 'should raise an error if anything other than a number is input' do
         expect { account.withdraw("2018-06-21", "23") }.to raise_error('Input must be an integer or a float')
+      end
+
+      it 'should raise an error if date is in wrong format' do
+        expect { account.withdraw("123/2/018", 43) }.to raise_error('invalid date')
       end
     end
   end

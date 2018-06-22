@@ -1,7 +1,7 @@
 require './lib/account.rb'
 
 describe 'Account' do
-  subject(:account) { Account.new(Transactions.new, Statement.new) }
+  subject(:account) { Account.new }
 
   it ' A user creates a new account and the balance is zero' do
     expect(account.balance).to eq(0)

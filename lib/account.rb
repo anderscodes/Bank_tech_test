@@ -1,10 +1,13 @@
 require 'date'
+require './lib/transactions.rb'
+require './lib/statement.rb'
+
 
 class Account
 
   attr_reader :balance, :transactions, :statement
 
-  def initialize(transactions, statement)
+  def initialize(transactions = Transactions.new, statement = Statement.new)
     @balance = 0
     @transactions = transactions
     @statement = statement
@@ -17,7 +20,8 @@ class Account
     transactions.deposit(date, amount, balance)
   end
 
-  def withdraw(date = Date.strftime("%m/%d/%Y"), amount)
+  def withdraw(date = Date.today.strftime, amount)
+    date?(date)
     number?(amount)
     funds_check(amount)
     debit(amount)
@@ -28,8 +32,6 @@ class Account
     empty?
     statement.pretty_print(transactions.transaction_list)
   end
-
-
 
   private
 
@@ -56,6 +58,5 @@ class Account
   def date?(date)
     Date.parse(date)
   end
-
 
 end
